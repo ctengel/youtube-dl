@@ -322,11 +322,13 @@ class YoutubeEntryListBaseInfoExtractor(YoutubeBaseInfoExtractor):
 class YoutubePlaylistBaseInfoExtractor(YoutubeEntryListBaseInfoExtractor):
     def _process_page(self, content):
         for video_id, video_title in self.extract_videos_from_page(content):
-            yield self.url_result(video_id, 'Youtube', video_id, video_title)
+            yield self.url_result(video_id, 'Youtube', video_id, video_title, addl={'uploader': None})
 
     def extract_videos_from_page(self, page):
         ids_in_page = []
         titles_in_page = []
+        print(page)
+        raise Exception
         for mobj in re.finditer(self._VIDEO_RE, page):
             # The link with index 0 is not the first video of the playlist (not sure if still actual)
             if 'index' in mobj.groupdict() and mobj.group('id') == '0':
